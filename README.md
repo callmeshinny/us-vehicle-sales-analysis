@@ -1,21 +1,24 @@
 # US Vehicle Sales Analysis
 
-An end-to-end data analytics and machine learning project analysing more than **558,000 US vehicle auction records** to identify pricing factors, segment the market and predict vehicle prices.
+An end-to-end data analytics and machine learning project analysing more than **558,000 US vehicle auction records** to identify pricing factors, segment the market and support vehicle pricing decisions.
 
 ## Project Overview
 
-This project combines data cleaning, exploratory analysis and machine learning to answer three main questions:
+This project combines SQL, Python and machine learning to answer the following questions:
 
-- Which factors have the strongest influence on vehicle prices?
+- Which factors have the strongest influence on vehicle selling prices?
 - Can vehicles be classified into low, medium and high price categories?
-- Can the vehicle market be divided into meaningful customer or inventory segments?
+- Can vehicles be grouped into meaningful market segments?
+- Can a neural network predict vehicle selling prices?
 
-The project applies:
+The project includes:
 
-- Decision Tree
-- Random Forest
-- K-Means Clustering
-- PyTorch Multi-Layer Perceptron
+- data quality checks and SQL analysis;
+- data cleaning and preprocessing;
+- Decision Tree and Random Forest classification;
+- K-Means market segmentation;
+- PyTorch MLP price prediction;
+- visualisations and business insights.
 
 ## Dataset
 
@@ -25,17 +28,15 @@ The dataset was obtained from Kaggle:
 
 It contains **558,837 records and 16 variables**, including:
 
-- Year, make, model and trim
-- Body type and transmission
-- Vehicle condition
-- Odometer reading
-- Market reference value (`mmr`)
-- Selling price
-- Seller, state and sale date
+- year, make, model and trim;
+- body type and transmission;
+- condition and odometer;
+- MMR and selling price;
+- seller, state and sale date.
 
-The raw dataset is not stored in this repository because of its size.
+The raw CSV file is not included because of its size.
 
-After downloading it, place the file at:
+Place the downloaded dataset at:
 
 ```text
 data/raw/car_prices.csv
@@ -45,13 +46,13 @@ data/raw/car_prices.csv
 
 This was originally a team project. My main contributions included:
 
-- SQL querying
-- Data cleaning and preprocessing
-- Missing-value handling
-- Feature preparation
-- Machine learning modelling
-- Model evaluation
-- Business insight generation
+- SQL querying;
+- data cleaning and preprocessing;
+- missing-value handling;
+- feature preparation;
+- machine learning modelling;
+- model evaluation;
+- business insight generation.
 
 ## Project Structure
 
@@ -78,8 +79,15 @@ us-vehicle-sales-analysis/
 │   └── 03_mlp_price_prediction.ipynb
 │
 ├── sql/
-├── report/
+│   ├── README.md
+│   ├── 01_data_quality_checks.sql
+│   ├── 02_sales_summary.sql
+│   ├── 03_top_makes_models.sql
+│   ├── 04_price_and_mileage_analysis.sql
+│   └── 05_state_sales_analysis.sql
+│
 ├── requirements.txt
+├── LICENSE
 └── README.md
 ```
 
@@ -94,21 +102,15 @@ us-vehicle-sales-analysis/
 | MLP | Price prediction | RMSE: $8,460.10 |
 | MLP | Price prediction | R²: 0.2361 |
 
+> Note: MMR is highly correlated with selling price, so the classification results should be interpreted with caution.
+
 ## Classification Models
 
 The cleaned classification dataset contained **558,804 records**.
 
-Vehicles were divided into three price categories:
-
-| Category | Vehicles |
-|---|---:|
-| Low | 188,750 |
-| Medium | 184,058 |
-| High | 185,996 |
-
 The Decision Tree achieved **92.46% accuracy**, slightly higher than the Random Forest accuracy of **92.21%**.
 
-Both models performed strongly for low- and high-price vehicles, while the medium-price category was slightly more difficult to classify.
+Both models performed strongly for low- and high-price vehicles, while the medium-price category was slightly harder to classify.
 
 ### Model Comparison
 
@@ -120,7 +122,7 @@ Both models performed strongly for low- and high-price vehicles, while the mediu
 
 ## Feature Importance
 
-Market reference value (`mmr`) was the strongest predictor in both models.
+MMR was by far the strongest predictor, while year, mileage and condition provided additional explanatory value.
 
 Top Random Forest features included:
 
@@ -132,13 +134,11 @@ Top Random Forest features included:
 | Condition | 0.0514 |
 | Body type | 0.0220 |
 
-High-price vehicles had an average mileage of approximately **34,879 miles**, compared with **118,368 miles** for low-price vehicles.
-
-This suggests that mileage, condition and vehicle age play major roles in resale value.
+High-price vehicles averaged approximately **34,879 miles**, compared with **118,368 miles** for low-price vehicles.
 
 ## K-Means Market Segmentation
 
-The elbow method suggested that three to four clusters were suitable. A three-cluster model was selected for clearer interpretation.
+A three-cluster solution was selected using the elbow method.
 
 ### Elbow Method
 
@@ -171,20 +171,11 @@ The strongest correlations with selling price were:
 
 A PyTorch Multi-Layer Perceptron was developed using categorical embeddings and numerical features.
 
-The network architecture was:
+Model architecture:
 
 ```text
 256 → 128 → 64 → 32 → 1
 ```
-
-The model used:
-
-- Embedding layers
-- Batch Normalisation
-- Dropout
-- Adam optimisation
-- Learning-rate scheduling
-- Gradient clipping
 
 ### Performance
 
@@ -199,39 +190,35 @@ The model used:
 
 ![MLP prediction diagnostics](images/mlp_prediction_diagnostics.png)
 
-The MLP completed training successfully but performed poorly on expensive vehicles and generally underestimated selling prices.
-
-The model should therefore be considered an experimental baseline rather than a production-ready pricing model.
+The MLP completed training but generally underestimated expensive vehicles. It should therefore be considered an experimental baseline rather than a production-ready model.
 
 ## Key Business Insights
 
-- MMR is the strongest indicator of final vehicle selling price.
+- MMR is the strongest indicator of final selling price.
 - Newer vehicles generally retain more value.
 - Lower mileage is strongly associated with higher prices.
 - Better-condition vehicles are more likely to belong to premium segments.
-- Budget vehicles are typically older and have substantially higher mileage.
 - Dealers can use the three clusters to organise inventory into budget, mid-range and premium groups.
-- Sellers should highlight mileage, condition and maintenance history in listings.
-- Buyers should compare asking prices with MMR and negotiate more carefully on older or high-mileage vehicles.
+- Sellers should highlight mileage, condition and maintenance history.
+- Buyers should compare asking prices with MMR before purchasing.
 
 ## Limitations
 
-- The dataset contains historical auction data and may not represent current market prices.
-- MMR is already closely related to selling price, making the classification task easier.
-- K-Means only uses numerical variables and assumes relatively simple cluster shapes.
-- The MLP included high-cardinality variables such as VIN, which made the model unnecessarily large.
+- The dataset contains historical auction data and may not represent current prices.
+- MMR is closely related to selling price and may introduce target leakage.
+- K-Means only uses numerical features.
+- The MLP included high-cardinality variables such as VIN.
 - The MLP performed poorly on high-price vehicles.
 
 ## Future Improvements
 
-- Remove VIN from the neural network
-- Engineer better date and depreciation features
-- Predict the difference between selling price and MMR
-- Compare Random Forest Regressor, XGBoost and LightGBM
-- Apply cross-validation and hyperparameter tuning
-- Add SHAP model explanations
-- Build an interactive Power BI or Tableau dashboard
-- Deploy the best-performing model as a web application
+- Remove VIN from the neural network.
+- Engineer better date and depreciation features.
+- Compare Random Forest Regressor, XGBoost and LightGBM.
+- Apply cross-validation and hyperparameter tuning.
+- Add SHAP explanations.
+- Build a Power BI or Tableau dashboard.
+- Deploy the best-performing model as a web application.
 
 ## Technologies
 
@@ -263,16 +250,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-Install the dependencies:
+Install dependencies:
 
 ```bash
 python -m pip install -r requirements.txt
-```
-
-Download the dataset and place it at:
-
-```text
-data/raw/car_prices.csv
 ```
 
 Start Jupyter Notebook:
@@ -295,6 +276,6 @@ Run the notebooks in this order:
 [LinkedIn](https://www.linkedin.com/in/nh%C6%B0-ng%E1%BB%8Dc-nguy%E1%BB%85n-l%C3%AA-7380433ba/) ·
 [Email](mailto:ngocnln.work@gmail.com)
 
-## Acknowledgements
+## Licence
 
-The dataset was published on Kaggle by Syedanwar Afridi.
+This project is licensed under the MIT License.
