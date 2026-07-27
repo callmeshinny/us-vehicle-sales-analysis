@@ -20,6 +20,8 @@ The project includes:
 - PyTorch MLP price prediction;
 - visualisations and business insights.
 
+For detailed SQL queries and execution notes, see the [SQL documentation](sql/README.md).
+
 ## Dataset
 
 The dataset was obtained from Kaggle:
@@ -276,6 +278,6 @@ Run the notebooks in this order:
 [LinkedIn](https://www.linkedin.com/in/nh%C6%B0-ng%E1%BB%8Dc-nguy%E1%BB%85n-l%C3%AA-7380433ba/) ·
 [Email](mailto:ngocnln.work@gmail.com)
 
-## Licence
+## License
 
 This project is licensed under the MIT License.
