@@ -194,6 +194,32 @@ Model architecture:
 
 The MLP completed training but generally underestimated expensive vehicles. It should therefore be considered an experimental baseline rather than a production-ready model.
 
+## Regression Model Comparison
+
+Several regression models were compared using MAE, RMSE and R²:
+
+- Linear Regression
+- Random Forest Regressor
+- Gradient Boosting Regressor
+
+![Regression model comparison](images/regression_model_comparison.png)
+
+The comparison helps identify whether simpler regression models perform better than the initial neural-network baseline.
+
+## Business Dashboard
+
+The dashboard summarises key market indicators, including:
+
+- total vehicles
+- average selling price
+- average MMR
+- average mileage
+- leading vehicle makes
+- price by mileage group
+- state-level pricing patterns
+
+![Business dashboard](images/business_dashboard.png)
+
 ## Key Business Insights
 
 - MMR is the strongest indicator of final selling price.
