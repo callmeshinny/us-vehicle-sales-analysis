@@ -66,6 +66,7 @@ us-vehicle-sales-analysis/
 │       └── car_prices.csv
 │
 ├── images/
+│   ├── business_dashboard.png
 │   ├── model_comparison.png
 │   ├── confusion_matrix.png
 │   ├── elbow_method.png
@@ -73,12 +74,15 @@ us-vehicle-sales-analysis/
 │   ├── cluster_feature_profiles.png
 │   ├── cluster_boxplots.png
 │   ├── mlp_training_loss.png
-│   └── mlp_prediction_diagnostics.png
+│   ├── mlp_prediction_diagnostics.png
+│   └── regression_model_comparison.png
 │
 ├── notebooks/
 │   ├── 01_decision_tree_random_forest.ipynb
 │   ├── 02_kmeans_clustering.ipynb
-│   └── 03_mlp_price_prediction.ipynb
+│   ├── 03_mlp_price_prediction.ipynb
+│   ├── 04_regression_model_comparison.py
+│   └── create_business_dashboard.py
 │
 ├── sql/
 │   ├── README.md
@@ -88,6 +92,7 @@ us-vehicle-sales-analysis/
 │   ├── 04_price_and_mileage_analysis.sql
 │   └── 05_state_sales_analysis.sql
 │
+├── regression_results.csv
 ├── requirements.txt
 ├── LICENSE
 └── README.md
@@ -295,6 +300,18 @@ Run the notebooks in this order:
 1. `01_decision_tree_random_forest.ipynb`
 2. `02_kmeans_clustering.ipynb`
 3. `03_mlp_price_prediction.ipynb`
+
+Run the regression comparison:
+
+```bash
+python notebooks/04_regression_model_comparison.py
+```
+
+Create the business dashboard:
+
+```bash
+python notebooks/create_business_dashboard.py
+```
 
 ## Author
 
