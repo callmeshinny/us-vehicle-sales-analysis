@@ -1,0 +1,12 @@
+
+# Local environment and raw data
+.venv/
+data/raw/*.csv
+
+# Generated models and preprocessors
+*.pth
+*.pkl
+
+# Notebook backups
+*_backup.ipynb
+*_before_speedup.ipynb
